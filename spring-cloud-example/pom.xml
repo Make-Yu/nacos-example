@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.boot</groupId>
+		<artifactId>nacos-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>spring-cloud-example</artifactId>
+	<packaging>pom</packaging>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<!--配置中心客户端 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+				<version>${alibaba-nacos-config.version}</version>
+			</dependency>
+			<!--注册中心客户端 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+				<version>${alibaba-nacos.version}</version>
+			</dependency>
+			
+			<dependency>
+	            <groupId>com.alibaba.cloud</groupId>
+	            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+	            <version>${alibaba-sentinel.version}</version>
+	        </dependency>
+	        <!--断路器依赖-->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+				<version>${alibaba-sentinel-gateway.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>cloud-gateway</module>
+		<module>cloud-provider</module>
+		<module>cloud-consumer</module>
+	</modules>
+</project>

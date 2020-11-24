@@ -1,0 +1,65 @@
+server:
+  port: 6001
+
+spring:
+  application:
+    name: service-gateway
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 5000
+    pool:
+      max-active: 2000
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0
+  cloud:
+    #设置nacos注册地址
+    nacos:
+      discovery:
+        register-enabled: false
+        server-addr: http://nacos.dinghuo.me
+        #namespace: c22e5019-0bee-43b1-b80b-fc0b9d847501
+      config:
+        server-addr: http://nacos.dinghuo.me
+        #默认properties
+        #file-extension: properties
+    #设置sentinel注册地址
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858
+        #默认8719 ，已使用 自动加1 监测3次
+        port: 8719 
+      # 服务启动直接建立心跳连接
+      eager: true
+#      scg:
+#        fallback:
+#          mode: response
+#          response-status: 405
+#          response-body: error! 
+    #设置网关配置
+#    gateway:
+#      routes:
+#        - id: service-consumer #随便取
+#          # 支持普通url和lb://注册中心服务名称
+#          uri: lb://service-consumer
+#          predicates:
+#            - Path=/sc/**
+#          filters:
+#            - StripPrefix=1
+#        - id: service-provider
+#          uri: lb://service-provider
+#          predicates:
+#            - Path=/sp/**
+#          filters:
+#            - StripPrefix=1
+            
+            
+nacos:
+  gateway:
+    route:
+      config:
+        data-id: gateway_router_json
+        group: DEFAULT_GROUP

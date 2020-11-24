@@ -1,0 +1,14 @@
+server:
+  port: 6003
+  
+spring:
+  application:
+    name: service-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://nacos.dinghuo.me
+   
+        
+        
+        
