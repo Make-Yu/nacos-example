@@ -4,17 +4,6 @@ server:
 spring:
   application:
     name: service-gateway
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password:
-    timeout: 5000
-    pool:
-      max-active: 2000
-      max-wait: -1
-      max-idle: 500
-      min-idle: 0
   cloud:
     #设置nacos注册地址
     nacos:
