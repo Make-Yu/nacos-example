@@ -20,10 +20,10 @@ spring:
     nacos:
       discovery:
         register-enabled: false
-        server-addr: http://nacos.dinghuo.me
+        server-addr: 127.0.0.1:8848
         #namespace: c22e5019-0bee-43b1-b80b-fc0b9d847501
       config:
-        server-addr: http://nacos.dinghuo.me
+        server-addr: 127.0.0.1:8848
         #默认properties
         #file-extension: properties
     #设置sentinel注册地址

@@ -1,0 +1,33 @@
+[{
+    "filters": [{
+         "args": {
+            "parts": "1"
+        },
+        "name": "StripPrefix"
+    }],
+    "id": "service-consumer",
+    "order": 0,
+    "predicates": [{
+        "args": {
+            "pattern": "/sc/**"
+        },
+        "name": "Path"
+    }],
+    "uri": "lb://service-consumer"
+},{
+    "filters": [{
+         "args": {
+            "parts": "1"
+        },
+        "name": "StripPrefix"
+    }],
+    "id": "service-provider",
+    "order": 0,
+    "predicates": [{
+        "args": {
+            "pattern": "/sp/**"
+        },
+        "name": "Path"
+    }],
+    "uri": "lb://service-provider"
+}]
