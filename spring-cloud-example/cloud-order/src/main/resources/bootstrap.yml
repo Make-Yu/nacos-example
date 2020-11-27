@@ -1,0 +1,13 @@
+server:
+  port: 6002
+  
+spring:
+  application:
+    name: service-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: SEATA_GROUP
+      config:
+        server-addr: 127.0.0.1:8848
