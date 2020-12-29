@@ -19,6 +19,7 @@
 		<alibaba-nacos.version>2.2.3.RELEASE</alibaba-nacos.version>
 		<alibaba-sentinel.version>2.2.3.RELEASE</alibaba-sentinel.version>
 		<alibaba-sentinel-gateway.version>2.2.3.RELEASE</alibaba-sentinel-gateway.version>
+		<hutool-all.version>5.3.0</hutool-all.version>
 	</properties>
 
 	<dependencies>
@@ -87,5 +88,6 @@
 	<modules>
 		<module>spring-cloud-example</module>
 		<module>nacos-common</module>
+		<module>spring-boot-example</module>
 	</modules>
 </project>
