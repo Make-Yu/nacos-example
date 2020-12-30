@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<logger name="org.springframework.web" level="INFO" />
+	<springProperty scope="context" name="logpath" source="logging.path" />
+	<property name="LOG_PATH" value="${logpath}"/>
+	
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- 本地使用默认 -->
+			<Pattern>%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</Pattern>
+		</encoder>
+	</appender>
+
+	<springProfile name="test,prod">
+		<!-- INFO -->
+		<appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <File>${LOG_PATH}/info.log</File>
+	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <fileNamePattern>${LOG_PATH}/info-%d{yyyyMMdd}.log.%i</fileNamePattern>
+	            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	                <maxFileSize>10MB</maxFileSize>
+	            </timeBasedFileNamingAndTriggeringPolicy>
+	            <maxHistory>30</maxHistory>
+	        </rollingPolicy>
+	        <layout class="ch.qos.logback.classic.PatternLayout">
+	            <Pattern>%date{HH:mm:ss.SSS} [%thread] [%-5level] [%logger{35}][%line] --%mdc{client} %msg%n</Pattern>
+	        </layout>
+	    </appender>
+	
+	    <!-- ERROR -->
+	    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+	            <level>ERROR</level>
+	        </filter>
+	        <File>${LOG_PATH}/error.log</File>
+	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <fileNamePattern>${LOG_PATH}/error-%d{yyyyMMdd}.log.%i</fileNamePattern>
+	            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	                <maxFileSize>10MB</maxFileSize>
+	            </timeBasedFileNamingAndTriggeringPolicy>
+	            <maxHistory>30</maxHistory>
+	        </rollingPolicy>
+	        <layout class="ch.qos.logback.classic.PatternLayout">
+	            <Pattern>%date{HH:mm:ss.SSS} [%thread] [%-5level] [%logger{35}:%line] --%mdc{client} %msg%n</Pattern>
+	        </layout>
+	    </appender>
+	    
+	    <!-- <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	        <destination>127.0.0.1:5044</destination> 
+	        <remoteHost>127.0.0.1</remoteHost>
+	        <port>5044</port>
+	        日志输出编码
+	        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+	        	<customFields>{"appname":"jhm-management-api"}</customFields>
+	        	<providers>
+	                <timestamp>
+	                    <timeZone>UTC</timeZone>
+	                </timestamp>
+	                <pattern>
+	                    <pattern>
+	                       {
+	                        "app": "${springAppName}",
+	                        "level": "%level",
+	                        "thread": "%thread",
+	                        "class": "%logger{40}",
+	                        "message": "%message"
+	                        }
+	                    </pattern>
+	                </pattern>
+	            </providers>
+	        </encoder>
+	    </appender> -->
+	</springProfile>
+	
+	<!-- dev 本地只打印控制台 -->
+	<springProfile name="dev">
+		<root level="INFO">
+	        <appender-ref ref="STDOUT" />
+	    </root>
+	</springProfile>
+	
+	<springProfile name="test">
+		<root level="INFO">
+	        <appender-ref ref="INFO_FILE" />
+	        <appender-ref ref="ERROR_FILE" />
+	        <!-- <appender-ref ref="LOGSTASH"/> -->
+	    </root>
+	</springProfile>
+	
+	<springProfile name="prod">
+		<root level="INFO">
+	        <appender-ref ref="INFO_FILE" />
+	        <appender-ref ref="ERROR_FILE" />
+	    </root>
+	</springProfile>
+</configuration>
+
+
