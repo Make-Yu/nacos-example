@@ -2,9 +2,6 @@
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
 	<logger name="org.springframework.web" level="INFO" />
-	<springProperty scope="context" name="logpath" source="logging.path" />
-	<property name="LOG_PATH" value="${logpath}"/>
-	
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
